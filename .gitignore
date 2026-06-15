@@ -1,0 +1,13 @@
+# Environment
+venv/
+.env
+secrets/
+
+# Logs
+log*
+
+# Git
+.git
+
+# Data
+data

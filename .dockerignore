@@ -1,0 +1,8 @@
+# Environment
+.env
+
+# Logs
+*.log
+
+# Git
+.git
