@@ -2,6 +2,7 @@
 venv/
 .env
 secrets/
+wp-content/
 
 # Logs
 log*
