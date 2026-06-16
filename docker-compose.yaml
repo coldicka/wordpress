@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:latest
     container_name: wordpress_DB
-    restart: always
+    restart: unless-stopped
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -30,7 +30,7 @@ services:
       PMA_ARBITRARY: 1
       PMA_HOST: db:3306
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-    restart: always
+    restart: unless-stopped
     networks:
       - wpsite
     secrets:
@@ -38,7 +38,7 @@ services:
   # Wordpress
   wordpress:
     image: wordpress:latest
-    restart: always
+    restart: unless-stopped
     depends_on:
       - db
     ports:
