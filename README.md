@@ -17,6 +17,9 @@ This repository provides a Dockerized WordPress development environment featurin
 * [Prerequisites](#prerequisites)
 * [Quickstart](#quickstart)
 * [Usage](#usage)
+    * [Data Persistence](#data-persistence)
+    * [Container Restart Policy](#container-restart-policy)
+    * [Secrets Management](#secrets-management)
 
 
 ## Prerequisites
@@ -97,6 +100,6 @@ All services are configured with the following `restart policy`
 
 Sensitive information is stored in the secrets directory and managed through Docker secrets.
 
-For more information, see the Docker [documentation}(https://docs.docker.com/engine/swarm/secrets/#build-support-for-docker-secrets-into-your-images)
+For more information, see the Docker [documentation](https://docs.docker.com/engine/swarm/secrets/#build-support-for-docker-secrets-into-your-images)
 
 
