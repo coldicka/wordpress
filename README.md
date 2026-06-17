@@ -9,7 +9,7 @@ This repository provides a Dockerized WordPress development environment featurin
     * docker-composer.yaml
     * Docker secrets
 * Persistent storage using Docker volumes
-* Automatic container restarts via restart: always
+* Automatic container restarts via restart: unless-stopped
 * Internal Docker networking, allowing containers to communicate using service names.
 
 ## Table of contents
@@ -54,7 +54,7 @@ cp example.env .env
 * Create the secrets directory
 
 ```bash
-cp secrets_example secrets
+cp -r secrets_example secrets
 ```
 
 * Configure the following values
@@ -83,9 +83,9 @@ http://<host-ip>:8080
 
 ## Usage
 The following Docker images are used:
-* mysql:latest
-* phpmyadmin:latest
-* wordpress:latest
+* mysql:9.7.1
+* phpmyadmin:5.2.3
+* wordpress:7.0.0-php8.2-apache
 
 ### Data Persistence
 
@@ -100,6 +100,6 @@ All services are configured with the following `restart policy`
 
 Sensitive information is stored in the secrets directory and managed through Docker secrets.
 
-For more information, see the Docker [documentation](https://docs.docker.com/engine/swarm/secrets/#build-support-for-docker-secrets-into-your-images)
+For more information about the secrets management, see the Docker [documentation](https://docs.docker.com/engine/swarm/secrets/#build-support-for-docker-secrets-into-your-images)
 
 
