@@ -1,0 +1,75 @@
+services:
+  # Database
+  db:
+    image: mysql:9.7.1
+    container_name: wordpress_DB
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wpsite
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_DATABASE_FILE: /run/secrets/db_name
+      MYSQL_USER_FILE: /run/secrets/db_user
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_root_password
+      - db_name
+      - db_user
+      - db_password
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:5.2.3
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: ${WORDPRESS_DB_HOST}
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+    restart: unless-stopped
+    networks:
+      - wpsite
+    secrets:
+      - db_root_password
+  # Wordpress
+  wordpress:
+    image: wordpress:7.0.0-php8.2-apache
+    container_name: wordpress_site
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_TITLE: ${WORDPRESS_TITLE}
+      WORDPRESS_DB_USER_FILE: /run/secrets/db_user
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+      WORDPRESS_DB_NAME_FILE: /run/secrets/db_name
+    volumes:
+      - wp-content:/var/www/html/wp-content
+    networks:
+      - wpsite
+    secrets:
+      - db_user
+      - db_password
+      - db_name
+  
+networks:
+  wpsite:
+volumes:
+  wp-content:
+  db_data:
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password.txt
+  db_name:
+    file: ./secrets/db_name.txt   
+  db_user:
+    file: ./secrets/db_user.txt
+  db_password:
+    file: ./secrets/db_password.txt

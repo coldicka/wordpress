@@ -1,0 +1,10 @@
+# Environment
+.env
+secrets/
+wp-content/
+
+# Logs
+log*
+
+# Git
+.git
