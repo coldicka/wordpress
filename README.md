@@ -6,7 +6,7 @@ This repository provides a Dockerized WordPress development environment featurin
 * **Mysql** running in a separate container
 * **phpmyadmin** running in a separate container
 * Configuration managed through
-    * docker-composer.yaml
+    * docker-compose.yaml
     * Docker secrets
 * Persistent storage using Docker volumes
 * Automatic container restarts via restart: unless-stopped
